@@ -84,16 +84,27 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ lesson, courseTitle, onBack, 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Video Player */}
         <div className="relative bg-black aspect-video">
-          {/* Simulación de video con imagen de placeholder */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center">
-            <div className="text-center text-white">
-              <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <Play className="h-12 w-12 text-white ml-1" />
+          {/* Video real o simulación */}
+          {lesson.videoUrl && lesson.videoUrl !== 'https://example.com/video1' ? (
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src={lesson.videoUrl}
+              onTimeUpdate={(e) => setCurrentTime(Math.floor(e.currentTarget.currentTime))}
+              onLoadedMetadata={(e) => setDuration(Math.floor(e.currentTarget.duration))}
+            />
+          ) : (
+            /* Simulación de video con imagen de placeholder */
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <Play className="h-12 w-12 text-white ml-1" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{lesson.title}</h3>
+                <p className="text-blue-200">Contenido de video educativo</p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">{lesson.title}</h3>
-              <p className="text-blue-200">Contenido de video educativo</p>
             </div>
-          </div>
+          )}
           
           {/* Video Controls */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">

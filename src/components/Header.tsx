@@ -1,12 +1,13 @@
 import React from 'react';
-import { BookOpen, User, LogOut, Settings, UserCircle } from 'lucide-react';
+import { BookOpen, User, LogOut, Settings, UserCircle, Shield } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 interface HeaderProps {
   onUserMenuClick?: () => void;
+  onAdminClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onUserMenuClick }) => {
+const Header: React.FC<HeaderProps> = ({ onUserMenuClick, onAdminClick }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
   const { user, logout } = useAuth();
 
@@ -50,6 +51,18 @@ const Header: React.FC<HeaderProps> = ({ onUserMenuClick }) => {
                   <UserCircle className="h-4 w-4" />
                   <span>Mi Perfil</span>
                 </button>
+                {user?.role === 'admin' && (
+                  <button
+                    onClick={() => {
+                      setShowUserMenu(false);
+                      onAdminClick?.();
+                    }}
+                    className="w-full flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    <Shield className="h-4 w-4" />
+                    <span>Panel de Admin</span>
+                  </button>
+                )}
                 <button className="w-full flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                   <Settings className="h-4 w-4" />
                   <span>Configuración</span>

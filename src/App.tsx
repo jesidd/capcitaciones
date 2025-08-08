@@ -7,10 +7,11 @@ import CourseCard from './components/CourseCard';
 import CourseDetail from './components/CourseDetail';
 import UserProfile from './components/UserProfile';
 import VideoPlayer from './components/VideoPlayer';
+import AdminPanel from './components/AdminPanel';
 import StatsCard from './components/StatsCard';
 import { mockCourses, Course } from './data/courses';
 
-type ViewType = 'dashboard' | 'course' | 'profile' | 'video';
+type ViewType = 'dashboard' | 'course' | 'profile' | 'video' | 'admin';
 
 function App() {
   const { isAuthenticated, isLoading: authLoading, login } = useAuth();
@@ -50,6 +51,10 @@ function App() {
 
   const handleUserMenuClick = () => {
     setCurrentView('profile');
+  };
+
+  const handleAdminPanelClick = () => {
+    setCurrentView('admin');
   };
 
   // Mostrar loading mientras se verifica la autenticación
@@ -128,9 +133,21 @@ function App() {
   if (currentView === 'profile') {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header onUserMenuClick={handleUserMenuClick} />
+        <Header onUserMenuClick={handleUserMenuClick} onAdminClick={handleAdminPanelClick} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <UserProfile onBack={handleBackToDashboard} />
+        </main>
+      </div>
+    );
+  }
+
+  // Renderizar vista de administración
+  if (currentView === 'admin') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header onUserMenuClick={handleUserMenuClick} onAdminClick={handleAdminPanelClick} />
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <AdminPanel onBack={handleBackToDashboard} />
         </main>
       </div>
     );
@@ -140,7 +157,7 @@ function App() {
   if (currentView === 'course' && selectedCourse) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header onUserMenuClick={handleUserMenuClick} />
+        <Header onUserMenuClick={handleUserMenuClick} onAdminClick={handleAdminPanelClick} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <CourseDetail 
             course={selectedCourse} 
@@ -155,7 +172,7 @@ function App() {
   // Renderizar dashboard principal
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header onUserMenuClick={handleUserMenuClick} />
+      <Header onUserMenuClick={handleUserMenuClick} onAdminClick={handleAdminPanelClick} />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
