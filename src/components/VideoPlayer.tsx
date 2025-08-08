@@ -85,13 +85,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ lesson, courseTitle, onBack, 
         {/* Video Player */}
         <div className="relative bg-black aspect-video">
           {/* Video real o simulación */}
-          {lesson.videoUrl && lesson.videoUrl !== 'https://example.com/video1' ? (
+          {lesson.videoUrl && !lesson.videoUrl.includes('example.com') ? (
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
               src={lesson.videoUrl}
+              controls={false}
               onTimeUpdate={(e) => setCurrentTime(Math.floor(e.currentTarget.currentTime))}
               onLoadedMetadata={(e) => setDuration(Math.floor(e.currentTarget.duration))}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
             />
           ) : (
             /* Simulación de video con imagen de placeholder */

@@ -32,6 +32,7 @@ export const mockCourses: Course[] = [
     completed: false,
     instructor: 'Ana García',
     rating: 4.8,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     lessons: [
       { id: '1-1', title: 'Introducción a la seguridad laboral', duration: '15 min', completed: true, description: 'Conceptos básicos de seguridad en el trabajo y su importancia.' },
       { id: '1-2', title: 'Identificación de riesgos', duration: '20 min', completed: true, description: 'Aprende a identificar y evaluar riesgos en el ambiente laboral.' },
@@ -52,6 +53,7 @@ export const mockCourses: Course[] = [
     completed: false,
     instructor: 'Carlos López',
     rating: 4.6,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     lessons: [
       { id: '2-1', title: 'Fundamentos del liderazgo', duration: '25 min', completed: false, description: 'Principios básicos del liderazgo efectivo y características de un buen líder.' },
       { id: '2-2', title: 'Estilos de liderazgo', duration: '30 min', completed: false, description: 'Diferentes enfoques de liderazgo y cuándo aplicar cada uno.' },
@@ -72,6 +74,7 @@ export const mockCourses: Course[] = [
     completed: true,
     instructor: 'María Rodríguez',
     rating: 4.9,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     lessons: [
       { id: '3-1', title: 'Principios de atención al cliente', duration: '20 min', completed: true, description: 'Fundamentos del servicio al cliente y expectativas del consumidor.' },
       { id: '3-2', title: 'Comunicación asertiva', duration: '25 min', completed: true, description: 'Técnicas de comunicación efectiva con clientes.' },
@@ -91,6 +94,7 @@ export const mockCourses: Course[] = [
     completed: false,
     instructor: 'Diego Martín',
     rating: 4.7,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
     lessons: [
       { id: '4-1', title: 'Análisis del tiempo actual', duration: '20 min', completed: true, description: 'Evaluación de cómo utilizas tu tiempo actualmente.' },
       { id: '4-2', title: 'Técnicas de planificación', duration: '30 min', completed: true, description: 'Métodos efectivos para planificar tu día y semana.' },
@@ -111,6 +115,7 @@ export const mockCourses: Course[] = [
     completed: false,
     instructor: 'Laura Fernández',
     rating: 4.5,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
     lessons: [
       { id: '5-1', title: 'Dinámicas de equipo', duration: '25 min', completed: false, description: 'Actividades para fortalecer la cohesión del equipo.' },
       { id: '5-2', title: 'Roles y responsabilidades', duration: '20 min', completed: false, description: 'Definición clara de roles y responsabilidades en el equipo.' },
@@ -130,6 +135,7 @@ export const mockCourses: Course[] = [
     completed: false,
     instructor: 'Roberto Silva',
     rating: 4.4,
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
     lessons: [
       { id: '6-1', title: 'Fundamentos de la creatividad', duration: '30 min', completed: true, description: 'Bases teóricas de la creatividad y el pensamiento innovador.' },
       { id: '6-2', title: 'Técnicas de brainstorming', duration: '25 min', completed: false, description: 'Métodos para generar ideas creativas en grupo.' },
