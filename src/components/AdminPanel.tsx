@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Users, BookOpen, Tag, Shield, Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Tag, Shield, Plus, Edit, Trash2, Save, X, Image } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 interface AdminPanelProps {
@@ -20,6 +20,7 @@ interface Category {
   name: string;
   description: string;
   color: string;
+  image: string;
 }
 
 interface Role {
@@ -57,12 +58,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
   ]);
 
   const [categories, setCategories] = useState<Category[]>([
-    { id: '1', name: 'Seguridad', description: 'Cursos relacionados con seguridad laboral', color: 'red' },
-    { id: '2', name: 'Liderazgo', description: 'Desarrollo de habilidades de liderazgo', color: 'blue' },
-    { id: '3', name: 'Servicio', description: 'Atención y servicio al cliente', color: 'green' },
-    { id: '4', name: 'Productividad', description: 'Mejora de la productividad personal', color: 'purple' },
-    { id: '5', name: 'Colaboración', description: 'Trabajo en equipo y colaboración', color: 'yellow' },
-    { id: '6', name: 'Innovación', description: 'Creatividad e innovación empresarial', color: 'pink' },
+    { id: '1', name: 'Seguridad', description: 'Cursos relacionados con seguridad laboral', color: 'red', image: 'https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg' },
+    { id: '2', name: 'Liderazgo', description: 'Desarrollo de habilidades de liderazgo', color: 'blue', image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg' },
+    { id: '3', name: 'Servicio', description: 'Atención y servicio al cliente', color: 'green', image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg' },
+    { id: '4', name: 'Productividad', description: 'Mejora de la productividad personal', color: 'purple', image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg' },
+    { id: '5', name: 'Colaboración', description: 'Trabajo en equipo y colaboración', color: 'yellow', image: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg' },
+    { id: '6', name: 'Innovación', description: 'Creatividad e innovación empresarial', color: 'pink', image: 'https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg' },
   ]);
 
   const [roles, setRoles] = useState<Role[]>([
@@ -99,6 +100,26 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
       videoUrl: 'https://example.com/video1',
       instructor: 'Ana García',
       image: 'https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg'
+    },
+    {
+      id: '2',
+      title: 'Liderazgo Efectivo',
+      description: 'Desarrolla habilidades de liderazgo para motivar equipos',
+      duration: '3 horas',
+      categoryId: '2',
+      videoUrl: 'https://example.com/video2',
+      instructor: 'Carlos López',
+      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg'
+    },
+    {
+      id: '3',
+      title: 'Atención al Cliente',
+      description: 'Mejora tus habilidades de servicio al cliente',
+      duration: '1.5 horas',
+      categoryId: '3',
+      videoUrl: 'https://example.com/video3',
+      instructor: 'María Rodríguez',
+      image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg'
     }
   ]);
 
@@ -252,65 +273,112 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
           )}
 
           {activeTab === 'categories' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {categories.map((category) => (
-                <div key={category.id} className="p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-4 h-4 rounded-full bg-${category.color}-500`}></div>
-                      <h3 className="font-medium text-gray-900">{category.name}</h3>
-                    </div>
-                    <div className="flex items-center space-x-2">
+                <div key={category.id} className="bg-gray-50 rounded-lg overflow-hidden">
+                  <div className="relative">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      className="w-full h-32 object-cover"
+                    />
+                    <div className="absolute top-2 right-2 flex items-center space-x-1">
                       <button
                         onClick={() => handleEdit(category)}
-                        className="p-1 text-blue-600 hover:bg-blue-100 rounded"
+                        className="p-1 bg-white bg-opacity-90 text-blue-600 hover:bg-blue-100 rounded-full transition-colors"
                       >
-                        <Edit className="h-4 w-4" />
+                        <Edit className="h-3 w-3" />
                       </button>
                       <button
                         onClick={() => handleDelete('categories', category.id)}
-                        className="p-1 text-red-600 hover:bg-red-100 rounded"
+                        className="p-1 bg-white bg-opacity-90 text-red-600 hover:bg-red-100 rounded-full transition-colors"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-3 w-3" />
                       </button>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">{category.description}</p>
+                  <div className="p-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className={`w-3 h-3 rounded-full bg-${category.color}-500`}></div>
+                      <h3 className="font-medium text-gray-900">{category.name}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600">{category.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
           )}
 
           {activeTab === 'courses' && (
-            <div className="space-y-4">
-              {courses.map((course) => (
-                <div key={course.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <img src={course.image} alt={course.title} className="w-16 h-16 object-cover rounded-lg" />
-                    <div>
-                      <h3 className="font-medium text-gray-900">{course.title}</h3>
-                      <p className="text-sm text-gray-600">{course.description}</p>
-                      <p className="text-xs text-gray-500">
-                        Categoría: {getCategoryName(course.categoryId)} | Duración: {course.duration} | Instructor: {course.instructor}
-                      </p>
+            <div className="space-y-6">
+              {categories.map((category) => {
+                const categoryCourses = courses.filter(course => course.categoryId === category.id);
+                return (
+                  <div key={category.id} className="bg-gray-50 rounded-lg p-4">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <img 
+                        src={category.image} 
+                        alt={category.name}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
+                        <p className="text-sm text-gray-600">{categoryCourses.length} curso(s)</p>
+                      </div>
                     </div>
+                    
+                    {categoryCourses.length === 0 ? (
+                      <div className="text-center py-8 text-gray-500">
+                        <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                        <p>No hay cursos en esta categoría</p>
+                        <button
+                          onClick={() => handleCreate('courses')}
+                          className="mt-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                        >
+                          Agregar primer curso
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {categoryCourses.map((course) => (
+                          <div key={course.id} className="bg-white rounded-lg p-4 shadow-sm">
+                            <div className="flex items-start space-x-3">
+                              <img 
+                                src={course.image} 
+                                alt={course.title} 
+                                className="w-16 h-16 object-cover rounded-lg flex-shrink-0" 
+                              />
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-medium text-gray-900 truncate">{course.title}</h4>
+                                <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
+                                <div className="flex items-center justify-between mt-2">
+                                  <div className="text-xs text-gray-500">
+                                    <span>{course.duration}</span> • <span>{course.instructor}</span>
+                                  </div>
+                                  <div className="flex items-center space-x-1">
+                                    <button
+                                      onClick={() => handleEdit(course)}
+                                      className="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors"
+                                    >
+                                      <Edit className="h-3 w-3" />
+                                    </button>
+                                    <button
+                                      onClick={() => handleDelete('courses', course.id)}
+                                      className="p-1 text-red-600 hover:bg-red-100 rounded transition-colors"
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => handleEdit(course)}
-                      className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
-                    >
-                      <Edit className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete('courses', course.id)}
-                      className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -441,7 +509,8 @@ const CreateEditModal: React.FC<CreateEditModalProps> = ({ type, item, categorie
         return {
           name: item?.name || '',
           description: item?.description || '',
-          color: item?.color || 'blue'
+          color: item?.color || 'blue',
+          image: item?.image || 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg'
         };
       case 'courses':
         return {
@@ -566,6 +635,29 @@ const CreateEditModal: React.FC<CreateEditModalProps> = ({ type, item, categorie
                   rows={3}
                   required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Imagen de Categoría</label>
+                <input
+                  type="url"
+                  value={formData.image}
+                  onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+                  placeholder="https://images.pexels.com/photos/..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                {formData.image && (
+                  <div className="mt-2">
+                    <img 
+                      src={formData.image} 
+                      alt="Vista previa" 
+                      className="w-32 h-20 object-cover rounded-lg border border-gray-200"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg';
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
